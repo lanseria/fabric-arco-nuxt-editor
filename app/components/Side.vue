@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-const formData = ref({
-  width: 400,
-  height: 400,
-  backgroundColor: '#fff',
-  backgroundImage: '',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
+import { canvasPropsKey } from '~/constants'
+
+const canvasProps = useLocalStorage(canvasPropsKey, {
+  width: 800,
+  height: 600,
 })
 </script>
 
@@ -14,11 +12,11 @@ const formData = ref({
     <div class="mb-20px text-sm font-bold">
       画布属性
     </div>
-    <AForm :model="formData" layout="inline">
+    <AForm :model="canvasProps" layout="inline">
       <div grid="~ cols-2">
         <AFormItem field="width" tooltip="宽度小于4k像素大于1像素" label="宽度">
           <AInputNumber
-            v-model="formData.width"
+            v-model="canvasProps.width"
             :max="4096"
             :min="1"
             :precision="0"
@@ -27,7 +25,7 @@ const formData = ref({
         </AFormItem>
         <AFormItem field="height" tooltip="高度小于4k像素大于1像素" label="高度">
           <AInputNumber
-            v-model="formData.height"
+            v-model="canvasProps.height"
             :max="4096"
             :min="1"
             :precision="0"

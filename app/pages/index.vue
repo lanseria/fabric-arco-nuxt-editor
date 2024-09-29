@@ -1,20 +1,15 @@
 <script setup lang="ts">
+import { canvasPropsKey } from '~/constants'
+
 const WrapRef = useTemplateRef('WrapRef')
 const CanvasRef = useTemplateRef('CanvasRef')
 
 const { canvas, resizeCanvas } = useCanvas(CanvasRef)
 const { initWorkspace, resizeWorkspace, zoomToFit } = useWorkspace(canvas)
 
-const canvasProps = ref({
+const canvasProps = useLocalStorage(canvasPropsKey, {
   width: 800,
   height: 600,
-})
-
-onMounted(() => {
-  if (canvas.value) {
-    initWorkspace(canvasProps.value.width, canvasProps.value.height)
-    handleResize()
-  }
 })
 
 function handleResize() {
@@ -30,8 +25,12 @@ watch(() => canvasProps.value, (newProps) => {
   handleResize()
 }, { deep: true })
 
-// 使用 ResizeObserver 监听容器大小变化
 onMounted(() => {
+  if (canvas.value) {
+    initWorkspace(canvasProps.value.width, canvasProps.value.height)
+    handleResize()
+  }
+  // 使用 ResizeObserver 监听容器大小变化
   if (WrapRef.value) {
     const resizeObserver = new ResizeObserver(handleResize)
     resizeObserver.observe(WrapRef.value)
