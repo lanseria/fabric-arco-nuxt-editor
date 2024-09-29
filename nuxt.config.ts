@@ -9,6 +9,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
     '@nuxt/eslint',
+    'arco-design-nuxt-module',
   ],
 
   experimental: {
@@ -24,6 +25,8 @@ export default defineNuxtConfig({
   ],
 
   colorMode: {
+    preference: 'system', // default value of $colorMode.preference
+    fallback: 'light', // fallback value if not system preference found
     classSuffix: '',
   },
 

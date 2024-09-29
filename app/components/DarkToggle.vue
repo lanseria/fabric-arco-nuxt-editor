@@ -8,10 +8,22 @@ useHead({
     content: () => color.value === 'dark' ? '#222222' : '#ffffff',
   }],
 })
-
 function toggleDark() {
   color.preference = color.value === 'dark' ? 'light' : 'dark'
 }
+onMounted(() => {
+  watchEffect(() => {
+    const dark = color.preference === 'dark'
+    if (dark) {
+    // 设置为暗黑主题
+      document.body.setAttribute('arco-theme', 'dark')
+    }
+    else {
+    // 恢复亮色主题
+      document.body.removeAttribute('arco-theme')
+    }
+  })
+})
 </script>
 
 <template>

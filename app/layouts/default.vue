@@ -1,9 +1,11 @@
 <template>
-  <main class="px-10 py-20 text-center">
-    <slot />
-    <Footer />
-    <div class="mx-auto mt-5 text-center text-sm opacity-25">
-      [Default Layout]
+  <main class="h-screen flex flex-col font-sans">
+    <Header />
+    <div class="flex flex-1 shrink grow basis-0 overflow-hidden">
+      <!-- 画布区域 -->
+      <slot />
+      <!-- 属性区域 -->
+      <Side class="w-400px" />
     </div>
   </main>
 </template>
